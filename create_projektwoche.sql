@@ -1,31 +1,30 @@
 -- Miniwelt Projektwoche
 -- Authoren Bruni, Zumpe
-
 -- Datum: 15.04.24
 
 CREATE TABLE angestellte (
-	Kuerzel VARCHAR(4) PRIMARY KEY 
+	kuerzel VARCHAR(4) PRIMARY KEY 
 		NOT NULL,
-	Vorname VARCHAR (50)
+	a_vorname VARCHAR (50)
 		NOT NULL,
-	Nachname VARCHAR (50)
+	a_nachname VARCHAR (50)
 		NOT NULL
 );
 
 CREATE TABLE schuelerInnen(
-	sid SERIAL PRIMARY KEY,
-	vorname VARCHAR(50),
-	nachname VARCHAR(50),
-	Jahrgangsstufe INTEGER,
-	profilnummer INTEGER,
-	Klassennumer  INTEGER 
+	sus_id INTEGER PRIMARY KEY,
+	sus_vorname 	VARCHAR,
+	sus_nachname 	VARCHAR,
+	Jahrgangsstufe 	INTEGER,
+	profilnummer 	INTEGER,
+	Klassennumer  	INTEGER 
 );
 
 CREATE TABLE projekt(
-	pnummer integer PRIMARY KEY,
+	pnummer INTEGER PRIMARY KEY,
 	ptitel	VARCHAR(100),
 	pleitung VARCHAR (4) not null references angestellte(kuerzel),
-	passitent serial references schuelerInnen(sid)
+	passitent integer references schuelerInnen(sus_id)
 );
 
 CREATE TABLE findet_statt(
@@ -35,5 +34,14 @@ CREATE TABLE findet_statt(
 	check (wochentag in ('montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag')),
 	raum_oder_ort VARCHAR(50)
 );
+
+CREATE TABLE nimmt_teil(
+	pnummer 		INTEGER	REFERENCES projekt, 
+	sus_vorname 	VARCHAR REFERENCES schuelerInnen,
+	sus_nachname 	VARCHAR REFERENCES schuelerInnen,
+	idnummer 		INTEGER REFERENCES schuelerInnen
+);
+
+
 
 
