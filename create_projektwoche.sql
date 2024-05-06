@@ -1,6 +1,6 @@
 -- Miniwelt Projektwoche
 -- Authoren Bruni, Zumpe
--- Datum: 15.04.24
+-- Datum: 06.05.24
 
 CREATE TABLE angestellte (
 	kuerzel VARCHAR(4) PRIMARY KEY,
