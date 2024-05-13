@@ -1,6 +1,6 @@
 -- Miniwelt Projektwoche
 -- Authoren Bruni, Zumpe
--- Datum: 06.05.24
+-- Datum/Stand: 13.05.24
 
 CREATE TABLE angestellte (
 	akuerzel 		VARCHAR(4) PRIMARY KEY NOT NULL,
@@ -13,9 +13,9 @@ Comment on table angestellte IS 'ProjektwochenDB';
 
 CREATE TABLE schuelerInnen(
 	
-	sID 			SERIAL PRIMARY KEY,
-	sVorname 		VARCHAR NOT NULL,
-	sNachname 		VARCHAR NOT NULL,
+	sID 				SERIAL PRIMARY KEY,
+	sVorname 			VARCHAR NOT NULL,
+	sNachname 			VARCHAR NOT NULL,
 	sJahrgangsstufe 	INTEGER NOT NULL,
 	sProfilnummer 		INTEGER NOT NULL,
 	sKlassennumer  		INTEGER NOT NULL 
