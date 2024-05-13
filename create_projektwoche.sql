@@ -13,9 +13,9 @@ Comment on table angestellte IS 'ProjektwochenDB';
 
 CREATE TABLE schuelerInnen(
 	
-	sID 				SERIAL PRIMARY KEY,
-	sVorname 			VARCHAR NOT NULL,
-	sNachname 			VARCHAR NOT NULL,
+	sID 			SERIAL PRIMARY KEY,
+	sVorname 		VARCHAR NOT NULL,
+	sNachname 		VARCHAR NOT NULL,
 	sJahrgangsstufe 	INTEGER NOT NULL,
 	sProfilnummer 		INTEGER NOT NULL,
 	sKlassennumer  		INTEGER NOT NULL 
