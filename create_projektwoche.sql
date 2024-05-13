@@ -3,47 +3,73 @@
 -- Datum: 06.05.24
 
 CREATE TABLE angestellte (
-	kuerzel VARCHAR(4) PRIMARY KEY,
-	a_vorname VARCHAR 
-		NOT NULL,
-	a_nachname VARCHAR 
-		NOT NULL
+	akuerzel 		VARCHAR(4) PRIMARY KEY NOT NULL,
+	aVorname 		VARCHAR NOT NULL,
+	aNachname 		VARCHAR NOT NULL
 );
+
+Comment on table angestellte IS 'ProjektwochenDB';
+
 
 CREATE TABLE schuelerInnen(
-	sus_id INTEGER PRIMARY KEY,
-	sus_vorname VARCHAR
-		NOT NULL,
-	sus_nachname VARCHAR
-		NOT NULL,
-	Jahrgangsstufe 	INTEGER
-		NOT NULL,
-	profilnummer 	INTEGER
-		NOT NULL,
-	Klassennumer  	INTEGER
-		NOT NULL 
+	
+	sID 				SERIAL PRIMARY KEY,
+	sVorname 			VARCHAR NOT NULL,
+	sNachname 			VARCHAR NOT NULL,
+	sJahrgangsstufe 	INTEGER NOT NULL,
+	sProfilnummer 		INTEGER NOT NULL,
+	sKlassennumer  		INTEGER NOT NULL 
 );
+
+Comment on table schuelerInnen IS 'ProjektwochenDB';
+
 
 CREATE TABLE projekt(
-	pnummer INTEGER PRIMARY KEY UNIQUE, 
-	ptitel	VARCHAR UNIQUE,
-	pleitung VARCHAR (4) not null references angestellte(kuerzel),
-	passitent integer references schuelerInnen(sus_id)
-	
-	--CONSTRAINT projektnummer UNIQUE (pnummer)
+	pNummer 		SERIAL 	PRIMARY KEY, 
+	ptitel			VARCHAR UNIQUE
 );
 
-CREATE TABLE findet_statt(
-	von_tageszeit TIME, 
-	bis_tageszeit TIME, 
-	wochentag VARCHAR,
-	check (wochentag in ('montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag')),
-	raum_oder_ort VARCHAR
-);
+Comment on table projekt IS 'ProjektwochenDB';
+
 
 CREATE TABLE nimmt_teil(
-	pnummer 		integer references projekt(pnummer),
-	sus_id			integer references schuelerInnen
+	pNummer 		INTEGER REFERENCES projekt(pnummer),
+	sID				INTEGER REFERENCES schuelerInnen, 
+	rolle			VARCHAR,
+	CHECK  (rolle in ('assistent', 'teilnehmer'))
+);
+
+Comment on table nimmt_teil IS 'ProjektwochenDB';
+
+
+CREATE TABLE leitet (
+	leitung 		VARCHAR(4) REFERENCES angestellte(akuerzel),
+	pNummer 		INTEGER REFERENCES projekt	
+);
+
+Comment on table leitet IS 'ProjektwochenDB';
+
+
+CREATE TABLE leitet_mit(
+	leitung2		VARCHAR REFERENCES angestellte(akuerzel) not null, 
+	pNummer 		INTEGER REFERENCES projekt				 not null	
 );
 
 
+Comment on table leitet_mit IS 'ProjektwochenDB';
+
+CREATE TABLE raum_oder_ort(
+	bezeichnung		VARCHAR PRIMARY KEY UNIQUE
+);
+
+Comment on table raum_oder_ort IS 'ProjektwochenDB';
+
+
+CREATE TABLE findet_statt(
+	von_tageszeit 	TIME, 
+	bis_tageszeit 	TIME, 
+	wochentag 		VARCHAR check (wochentag in ('montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag')),
+	ort 			VARCHAR REFERENCES raum_oder_ort(bezeichnung)
+);
+
+Comment on table findet_statt IS 'ProjektwochenDB';
