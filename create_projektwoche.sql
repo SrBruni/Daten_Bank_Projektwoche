@@ -13,9 +13,9 @@ Comment on table angestellte IS 'ProjektwochenDB';
 
 CREATE TABLE schuelerInnen(
 	
-	sID 				SERIAL PRIMARY KEY,
-	sVorname 			VARCHAR NOT NULL,
-	sNachname 			VARCHAR NOT NULL,
+	sID 			SERIAL PRIMARY KEY,
+	sVorname 		VARCHAR NOT NULL,
+	sNachname 		VARCHAR NOT NULL,
 	sJahrgangsstufe 	INTEGER NOT NULL,
 	sProfilnummer 		INTEGER NOT NULL,
 	sKlassennumer  		INTEGER NOT NULL 
@@ -27,14 +27,14 @@ Comment on table schuelerInnen IS 'ProjektwochenDB';
 CREATE TABLE projekt(
 	pNummer 		SERIAL 	PRIMARY KEY, 
 	ptitel			VARCHAR UNIQUE,
-	pMaxTeilnehmer  integer not null
+	pMaxTeilnehmer  	INTEGER NOT NULL
 );
 
 Comment on table projekt IS 'ProjektwochenDB';
 
 
 CREATE TABLE nimmt_teil(
-	sID				INTEGER REFERENCES schuelerInnen, 
+	sID			INTEGER REFERENCES schuelerInnen, 
 	pNummer 		INTEGER REFERENCES projekt(pnummer),
 	rolle			VARCHAR,
 	CHECK  (rolle in ('assistent', 'teilnehmer'))
@@ -67,8 +67,8 @@ Comment on table raum_oder_ort IS 'ProjektwochenDB';
 
 
 CREATE TABLE findet_statt(
-	von_tageszeit 	TIME, 
-	bis_tageszeit 	TIME, 
+	von_tageszeit 		TIME, 
+	bis_tageszeit 		TIME, 
 	wochentag 		VARCHAR check (wochentag in ('montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag')),
 	ort 			VARCHAR REFERENCES raum_oder_ort(bezeichnung)
 );
