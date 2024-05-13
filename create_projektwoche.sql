@@ -26,19 +26,20 @@ Comment on table schuelerInnen IS 'ProjektwochenDB';
 
 CREATE TABLE projekt(
 	pNummer 		SERIAL 	PRIMARY KEY, 
-	ptitel			VARCHAR UNIQUE
+	ptitel			VARCHAR UNIQUE,
+	pMaxTeilnehmer  integer not null
 );
 
 Comment on table projekt IS 'ProjektwochenDB';
 
 
 CREATE TABLE nimmt_teil(
-	pNummer 		INTEGER REFERENCES projekt(pnummer),
 	sID				INTEGER REFERENCES schuelerInnen, 
+	pNummer 		INTEGER REFERENCES projekt(pnummer),
 	rolle			VARCHAR,
 	CHECK  (rolle in ('assistent', 'teilnehmer'))
 );
-
+--trigger einbauen ???
 Comment on table nimmt_teil IS 'ProjektwochenDB';
 
 
@@ -73,3 +74,9 @@ CREATE TABLE findet_statt(
 );
 
 Comment on table findet_statt IS 'ProjektwochenDB';
+
+
+
+
+
+
