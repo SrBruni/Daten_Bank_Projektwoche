@@ -1,26 +1,30 @@
 -- Miniwelt Projektwoche
 -- Authoren Bruni, Zumpe
--- Datum: 15.04.24
+-- Datum: 27.05.24
 -- Funktion: Füllt die Tabellen der Datenbank Projektwoche mit DAten aus verschiedenen csv-Daeien
 -- ACHTUNG: die csv Dateien müssen in dem Verzeichnis liegen von dem aus PSQL gestartet wurde
 -- CSV HAEDER bedeutet, dass die erste Zeile der CDV Datei ignoriert wird
 
 --  einfuegen von 39 Angestellte aus der angestellte aus der csv Datei
 \COPY angestellte				FROM 'angestellte.csv'		DELIMITER ',' CSV HEADER;
+
 -- einfuegen von 130 Schulerinnenaus der csv Datei
 \COPY schuelerInnen 			FROM 'schuelerInnen.csv' 	DELIMITER ',' CSV HEADER;
--- pNummer, pTitel, pMaxTeilnehmer (12 Projekte)
+
+-- einfuegen von 12 Projekten nach dem Schema pNummer, pTitel, pMaxTeilnehmer 
+-- Projekte können auch Kursfahrten sein!!
+
 INSERT INTO projekt VALUES (default, 'Roboter programmieren',15); 
 INSERT INTO projekt VALUES (default, 'Malen und Zeichnen',12);
 INSERT INTO projekt VALUES (default, 'Programmierung einer eigenen Website', 17);
-INSERT INTO projekt VALUES (default, 'Kochen und Backen: Kulinarische Experimenten',25);
+INSERT INTO projekt VALUES (default, 'Kochen und Backen: Kulinarische Experimente',25);
 INSERT INTO projekt VALUES (default, 'Theaterworkshop: Schauspiel und Improvisation',20);
 INSERT INTO projekt VALUES (default, 'Raketenbau: Abenteuer im Weltall',24);
 INSERT INTO projekt VALUES (default, 'DIY: Handwerken und Basteln',28);
 INSERT INTO projekt VALUES (default, 'Roboterfußballturnier',23);
 INSERT INTO projekt VALUES (default, 'Chorprojekt: Gemeinsam Singen',23);
 INSERT INTO projekt VALUES (default, 'Filmproduktion: Kurzfilme drehen',18);
-INSERT INTO projekt VALUES (default, 'Gartenprojekt: Pflanzen und Pflegen',23);
+INSERT INTO projekt VALUES (default, 'Kursfahrt nach London',23);
 INSERT INTO projekt VALUES (default, 'Diskutieren und Argumentieren',23);
 --INSERT INTO projekt VALUES (default, 'Brettspielentwicklung: Spiele erfinden',25);
 --INSERT INTO projekt VALUES (default, 'Upcycling: Kreative Ideen für alte Dinge',23);
@@ -32,7 +36,8 @@ INSERT INTO projekt VALUES (default, 'Diskutieren und Argumentieren',23);
 --INSERT INTO projekt VALUES (default, 'Filmproduktion: Kurzfilme drehen',20);
 --INSERT INTO projekt VALUES (default, 'Escape Room selber bauen',22);
 --INSERT INTO projekt VALUES (default, 'Keramikwerkstatt: Töpfern und Gestalten',23);
--- sID, pNummer, rolle
+
+-- alle 130 SuS werden mindestens einem Projekt zugewiesen nach dem Schema: sID, pNummer, rolle
 INSERT INTO nimmt_teil VALUES (1,1,'assistent');
 INSERT INTO nimmt_teil VALUES (2,2,'teilnehmer');
 INSERT INTO nimmt_teil VALUES (3,3,'teilnehmer');
@@ -122,28 +127,84 @@ INSERT INTO nimmt_teil VALUES (86,3,'teilnehmer');
 INSERT INTO nimmt_teil VALUES (87,10,'teilnehmer');
 INSERT INTO nimmt_teil VALUES (88,7,'teilnehmer');
 INSERT INTO nimmt_teil VALUES (89,1,'assistent');
+INSERT INTO nimmt_teil VALUES (80,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (91,11,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (92,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (93,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (94,6,'assistent');
+INSERT INTO nimmt_teil VALUES (95,2,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (96,3,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (97,10,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (98,7,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (99,1,'assistent');
+INSERT INTO nimmt_teil VALUES (100,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (101,11,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (102,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (103,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (104,6,'assistent');
+INSERT INTO nimmt_teil VALUES (105,2,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (106,3,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (107,10,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (108,7,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (109,1,'assistent');
+INSERT INTO nimmt_teil VALUES (110,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (111,11,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (112,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (113,1,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (114,6,'assistent');
+INSERT INTO nimmt_teil VALUES (115,2,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (116,3,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (117,10,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (118,7,'teilnehmer');
+INSERT INTO nimmt_teil VALUES (119,1,'assistent');
+INSERT INTO nimmt_teil VALUES (120,7,'teilnehmer');
 
 
-
-
-
--- angestellte(aKuerzel), pNummer
+-- einige Angestellte werden als Projektleitungen Projekten zugewiesen nach dem Schema: angestellte(aKuerzel), pNummer
+-- jedes Projekt muss mindestens eine Leitung haben
+-- nicht jede(r) Angestellte muss eine Leitung übernehmen. Sie können auch Projekte "mitleiten"
 INSERT INTO leitet VALUES ('Schu',1);
 INSERT INTO leitet VALUES ('Hof',2);
 INSERT INTO leitet VALUES ('Schul',3);
 INSERT INTO leitet VALUES ('Fis',4);
 INSERT INTO leitet VALUES ('Wol',5);
-INSERT INTO leitet VALUES ('Leh',1);
-INSERT INTO leitet VALUES ('Hof',2);
-INSERT INTO leitet VALUES ('Lim',3);
-INSERT INTO leitet VALUES ('Hoff',4);
-INSERT INTO leitet VALUES ('Sch',5);
+INSERT INTO leitet VALUES ('Leh',6);
+INSERT INTO leitet VALUES ('Hof',7);
+INSERT INTO leitet VALUES ('Lim',8);
+INSERT INTO leitet VALUES ('Hoff',9);
+INSERT INTO leitet VALUES ('Sch',10);
+
+
+
+-- einige Angestellte werden als Mitleitende Projektnummer zugewiesen nach dem Schema: angestellte(aKuerzel), pNummer
 
 INSERT INTO leitet_mit VALUES ('Ber',2);
-INSERT INTO leitet_mit VALUES ('Schm',2);
-INSERT INTO leitet_mit VALUES ('Schus',2);
-INSERT INTO leitet_mit VALUES ('Hf',2);
-INSERT INTO leitet_mit VALUES ('Mei',2);
-INSERT INTO leitet_mit VALUES ('Mül',2);
+INSERT INTO leitet_mit VALUES ('Schm',5);
+INSERT INTO leitet_mit VALUES ('Schus',10);
+INSERT INTO leitet_mit VALUES ('Hf',4);
+INSERT INTO leitet_mit VALUES ('Mei',6);
+INSERT INTO leitet_mit VALUES ('Mül',1);
+
+-- es werden verschieden Orte festgelegt
+-- die Anzahl der Ort muss nicht mit den Projekten übereinstimmen, da Projekte auch an mehreren Orten teilen
+INSERT INTO raum_oder_ort VALUES ('004');
+INSERT INTO raum_oder_ort VALUES ('413');
+INSERT INTO raum_oder_ort VALUES ('Schulkueche');
+INSERT INTO raum_oder_ort VALUES ('Tempelhofer Feld');
+INSERT INTO raum_oder_ort VALUES ('Schulgarten');
+INSERT INTO raum_oder_ort VALUES ('Sportplatz');
+INSERT INTO raum_oder_ort VALUES ('Aula');
+INSERT INTO raum_oder_ort VALUES ('224');
+INSERT INTO raum_oder_ort VALUES ('123');
+INSERT INTO raum_oder_ort VALUES ('223');
+
+-- es wird nacheinander jeder pNummer ein Datum/Tag mit Start und Endzeit sowie einem Ort zugewiesen
+-- unsere Projektwoche findet beispielhaft vom Montag 2024-06-23 bis (maximal) Sonntag 2024-06-29
+INSERT INTO findet_statt (1,'2024-06-23','8:00:00','14:00:00','004')
+INSERT INTO findet_statt (1,'2024-06-24','8:00:00','14:00:00','004')
+INSERT INTO findet_statt (1,'2024-06-25','8:00:00','14:00:00','004')
+INSERT INTO findet_statt (1,'2024-06-26','8:00:00','14:00:00','004')
+INSERT INTO findet_statt (1,'2024-06-27','9:00:00','14:00:00','004')
+INSERT INTO findet_statt (2,'2024-06-24','8:00:00','13:00:00','004')
 
 
