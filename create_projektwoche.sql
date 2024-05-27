@@ -1,82 +1,61 @@
 -- Miniwelt Projektwoche
 -- Authoren Bruni, Zumpe
--- Datum/Stand: 13.05.24
+-- Funktion: erzeugt die Tabellen für die Datenbank Projektwoche
+-- Stand: 27.05.24
 
 CREATE TABLE angestellte (
-	akuerzel 		VARCHAR(4) PRIMARY KEY NOT NULL,
-	aVorname 		VARCHAR NOT NULL,
-	aNachname 		VARCHAR NOT NULL
+	aKuerzel		VARCHAR		PRIMARY KEY 	NOT NULL,
+	aVorname 		VARCHAR		NOT NULL,
+	aNachname 		VARCHAR		NOT NULL
 );
-
-Comment on table angestellte IS 'ProjektwochenDB';
-
+COMMENT ON Table angestellte IS 'ProjektwochenDB';
 
 CREATE TABLE schuelerInnen(
-	
-	sID 			SERIAL PRIMARY KEY,
-	sVorname 		VARCHAR NOT NULL,
-	sNachname 		VARCHAR NOT NULL,
-	sJahrgangsstufe 	INTEGER NOT NULL,
-	sProfilnummer 		INTEGER NOT NULL,
-	sKlassennumer  		INTEGER NOT NULL 
+	sID 			SERIAL 		PRIMARY KEY,
+	sVorname 		VARCHAR,
+	sNachname 		VARCHAR,
+	sJahrgangsstufe INTEGER,
+	sProfilnummer 	INTEGER,
+	sKlassennumer  	INTEGER 
 );
-
-Comment on table schuelerInnen IS 'ProjektwochenDB';
-
+COMMENT ON Table schuelerInnen IS 'ProjektwochenDB';
 
 CREATE TABLE projekt(
-	pNummer 		SERIAL 	PRIMARY KEY, 
-	ptitel			VARCHAR UNIQUE,
-	pMaxTeilnehmer  	INTEGER NOT NULL
+	pNummer 		serial 		PRIMARY KEY,
+	pTitel			VARCHAR		unique,
+	pMaxTeilnehmer	integer		NOT NULL
+);
+COMMENT ON Table projekt IS 'ProjektwochenDB';
+
+CREATE TABLE nimmt_teil (	
+	sID				INTEGER 		REFERENCES schuelerInnen,
+	pNummer			INTEGER		 	REFERENCES projekt,
+	rolle			varchar			CHECK (rolle in ('assistent','teilnehmer'))
 );
 
-Comment on table projekt IS 'ProjektwochenDB';
-
-
-CREATE TABLE nimmt_teil(
-	sID			INTEGER REFERENCES schuelerInnen, 
-	pNummer 		INTEGER REFERENCES projekt(pnummer),
-	rolle			VARCHAR,
-	CHECK  (rolle in ('assistent', 'teilnehmer'))
-);
---trigger einbauen ???
-Comment on table nimmt_teil IS 'ProjektwochenDB';
-
-
-CREATE TABLE leitet (
-	leitung 		VARCHAR(4) REFERENCES angestellte(akuerzel),
-	pNummer 		INTEGER REFERENCES projekt	
-);
-
-Comment on table leitet IS 'ProjektwochenDB';
-
-
-CREATE TABLE leitet_mit(
-	leitung2		VARCHAR REFERENCES angestellte(akuerzel) not null, 
-	pNummer 		INTEGER REFERENCES projekt				 not null	
+CREATE TABLE leitet(
+	Leitung 		VARCHAR			REFERENCES angestellte(aKuerzel)	not null,
+	pNummer			INTEGER			REFERENCES projekt					not null
 );
 
 
-Comment on table leitet_mit IS 'ProjektwochenDB';
-
-CREATE TABLE raum_oder_ort(
-	bezeichnung		VARCHAR PRIMARY KEY UNIQUE
+CREATE TABLE leitet_mit (
+	leitung2 		VARCHAR			REFERENCES angestellte(aKuerzel)	not null,
+	pNummer			INTEGER 		REFERENCES projekt					not null
 );
 
-Comment on table raum_oder_ort IS 'ProjektwochenDB';
-
+CREATE TABLE raum_oder_ort (
+	oBezeichnung		VARCHAR 	primary key 						UNIQUE,
+	oMaxPlaetze			INTEGER,
+	oAusstattung		VARCHAR
+);
 
 CREATE TABLE findet_statt(
-	von_tageszeit 		TIME, 
-	bis_tageszeit 		TIME, 
-	wochentag 		VARCHAR check (wochentag in ('montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag')),
-	ort 			VARCHAR REFERENCES raum_oder_ort(bezeichnung)
+	pNummer			serial		REFERENCES projekt					not null,
+	datum			DATE,
+	von_tageszeit 	TIME, 
+	bis_tageszeit 	TIME, 
+	ort 			VARCHAR	 		REFERENCES raum_oder_ort(oBezeichnung)
 );
 
-Comment on table findet_statt IS 'ProjektwochenDB';
-
-
-
-
-
-
+-- 
