@@ -1,0 +1,197 @@
+SQL-Beispielanfragen an die PostgreSQL-Datenbank projektwoche:
+
+1 - Alle Schülerinnen der Jahrgangsstufe 10
+
+SELECT sVorname, sNachname, sJahrgangsstufe
+FROM schuelerInnen
+WHERE sJahrgangsstufe = 10;
+__________________________________________________________________________________________________________________
+2 - Alle SchülerInnnen aus dem Profil 1
+
+SELECT sVorname, sNachname, sJahrgangsstufe, sProfilnummer
+FROM schuelerInnen
+WHERE sProfilnummer = 1;
+__________________________________________________________________________________________________________________
+3 - Alle SchülerInnnen der Klasse 721
+
+SELECT sVorname, sNachname, sJahrgangsstufe, sProfilnummer, sKlassennummer
+FROM schuelerInnen
+WHERE sJahrgangsstufe = 7
+AND sProfilnummer = 1
+AND sKlassennummer = 2;
+__________________________________________________________________________________________________________________
+4 - Alle Schülerinnen und Schüler anzeigen, die als Teilnehmer an dem Projekt 2 teilnehmen:
+
+SELECT * FROM schuelerInnen
+WHERE sID IN (SELECT sID FROM nimmt_teil WHERE rolle = 'teilnehmer' AND pNummer = 2);
+__________________________________________________________________________________________________________________
+
+5 - Alle Projeknummern und Projekttitel mit den Nachnamen der leitenden und der mitleitenden Lehrkräften:
+
+SELECT 
+    p.pNummer,
+    p.pTitel,
+    a1.aNachname AS Leiter,
+    a2.aNachname AS MitLeiter
+FROM 
+    projekt p
+LEFT JOIN 
+    leitet l ON p.pNummer = l.pNummer
+LEFT JOIN 
+    angestellte a1 ON l.Leitung = a1.aKuerzel
+LEFT JOIN 
+    leitet_mit lm ON p.pNummer = lm.pNummer
+LEFT JOIN 
+    angestellte a2 ON lm.Leitung2 = a2.aKuerzel;
+__________________________________________________________________________________________________________________
+
+6 - Anzahl der schuelerInnen die an dem Projekt 5 teilnehmen
+
+SELECT COUNT(*) AS Anzahl_Teilnehmer
+FROM nimmt_teil
+WHERE pNummer = 5;
+__________________________________________________________________________________________________________________
+
+7 - Daten aller schuelerInnen, die noch keinem Projekt zugeordnet sind
+
+SELECT sVorname, sNachname, sJahrgangsstufe, sProfilnummer, sKlassennummer
+FROM schuelerInnen s
+LEFT JOIN nimmt_teil nt ON s.sID = nt.sID
+WHERE nt.sID IS NULL;
+
+__________________________________________________________________________________________________________________
+
+8 - Projektnummer und Projekttitel mit Anzahl der Teilnehmenden und der maximal zulässigen Anzahl an Teilnehmenden
+
+folgende Anfrage funktioniert nicht optimal, da die Leitungen nicht in einer Zeile angegeben werden
+
+SELECT 
+    p.pNummer,
+    p.pTitel,
+    p.pMaxPers,
+    COUNT(nt.sID) AS Anzahl_SchuelerInnen
+FROM 
+    projekt p
+LEFT JOIN 
+    nimmt_teil nt ON p.pNummer = nt.pNummer
+GROUP BY 
+    p.pNummer, p.pTitel, p.pMaxPers
+ORDER BY 
+    p.pNummer;
+__________________________________________________________________________________________________________________
+  
+9 - Projektnummer und Projekttitel mit dem Nachnamen der dazugehörigen Leitung
+
+SELECT 
+    p.pNummer,
+    p.pTitel,
+    a.aNachname AS Leitung
+FROM 
+    projekt p
+JOIN 
+    leitet l ON p.pNummer = l.pNummer
+JOIN 
+    angestellte a ON l.Leitung = a.aKuerzel
+ORDER BY 
+    p.pNummer, a.aNachname;
+    
+__________________________________________________________________________________________________________________
+
+10 - Projektnummer und Projekttitel mit den Nachnamen der Leitung und den Nachnamen der Angestellten, die noch an dem Projekt beteiligt sind 
+
+SELECT 
+    p.pNummer,
+    p.pTitel,
+    a1.aNachname AS Leitung,
+    a2.aNachname AS MitLeitungen
+FROM 
+    projekt p
+JOIN 
+    leitet l ON p.pNummer = l.pNummer
+JOIN 
+    angestellte a1 ON l.Leitung = a1.aKuerzel
+LEFT JOIN 
+    leitet_mit lm ON p.pNummer = lm.pNummer
+LEFT JOIN 
+    angestellte a2 ON lm.MitLeitungen = a2.aKuerzel
+ORDER BY 
+    p.pNummer;
+
+__________________________________________________________________________________________________________________
+
+11 - alle Raumbezeichungen, die noch keinem Projekt zugewiesen sind 
+
+SELECT 
+    ro.oBezeichnung
+FROM 
+    raum_oder_ort ro
+LEFT JOIN 
+    findet_statt fs ON ro.oBezeichnung = fs.ort
+WHERE 
+    fs.ort IS NULL;
+
+__________________________________________________________________________________________________________________
+
+12 - alle Räume die doppelt belegt sind mit Angabe des Projektes und der leitenden angestellten Person
+
+SELECT 
+    p1.pNummer, 
+    p1.pTitel, 
+    l1.Leitung,
+    fs1.ort
+FROM 
+    projekt p1
+JOIN 
+    leitet l1 ON p1.pNummer = l1.pNummer
+JOIN 
+    findet_statt fs1 ON p1.pNummer = fs1.pNummer
+JOIN 
+    findet_statt fs2 ON fs1.ort = fs2.ort AND fs1.pNummer != fs2.pNummer
+GROUP BY 
+    p1.pNummer, 
+    p1.pTitel, 
+    l1.Leitung, 
+    fs1.ort
+ORDER BY 
+    fs1.ort;
+__________________________________________________________________________________________________________________
+
+13 - Projekttitel und die Kürzel der dazugehörigen Projektleitung von den Projekten, die am 27.06.2024 auf dem Schulhof stattfinden 
+
+SELECT 
+	projekt.pTitel,
+	angestellte.aKuerzel
+FROM 
+	projekt
+JOIN 
+	leitet ON projekt.pNummer = leitet.pNummer
+JOIN
+	angestellte ON leitet.Leitung = angestellte.aKuerzel
+JOIN
+	findet_statt ON projekt.pNummer = findet_statt.pNummer
+WHERE 
+	findet_statt.datum = '2024-06-27'
+AND 
+	findet_statt.ort = 'Schulhof';
+
+____________________________________________________________________________________________________________________________________
+
+14 - Projekttitel und Projektleitungskürzel zusammen mit dem Datum und der Endzeit, von Projekten, die nach 16 Uhr noch stattfinden
+
+SELECT pTitel, angestellte.aKuerzel, findet_statt.datum, findet_statt.bis_tageszeit
+FROM projekt
+JOIN leitet ON projekt.pNummer = leitet.pNummer
+JOIN angestellte ON leitet.Leitung = angestellte.aKuerzel
+JOIN findet_statt ON projekt.pNummer = findet_statt.pNummer
+WHERE findet_statt.bis_tageszeit >= '16:00:00';
+
+____________________________________________________________________________________________________________________________________
+
+15 - Projektnummer, Projekttitel sowie Vorname und Name der SchülerInnen, die als assitent bei dem jeweiligen Projekten mitwirken
+
+SELECT schuelerInnen.sVorname, schuelerInnen.sNachname, projekt.pNummer, projekt.pTitel
+FROM schuelerInnen
+JOIN nimmt_teil ON schuelerInnen.sID = nimmt_teil.sID
+JOIN projekt ON nimmt_teil.pNummer = projekt.pNummer
+WHERE nimmt_teil.rolle = 'assistent'
+ORDER BY projekt.pNummer;

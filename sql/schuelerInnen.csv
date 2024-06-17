@@ -1,0 +1,121 @@
+ID,Vorname,Nachname,Jahrgangsstufe, Profilnummer, Klassennummer
+1,Max,Müller,7,1,1
+2,Julia Maria,Schmidt,7,1,1
+3,David,Wagner,7,1,1
+4,Sarah,Fischer,7,1,1
+5,Lukas,Becker,7,1,1
+6,Anna Maria,Schneider,7,1,1
+7,Tim,Meier,7,1,1
+8,Laura,Schulz,7,1,1
+9,Jonas,Keller,7,1,1
+10,Lisa,Lehmann,7,1,1
+11,Kevin Justin,Koch,7,1,2
+12,Marie,Richter,7,1,2
+13,Paul,Wolf,7,1,2
+14,Lena,Braun,7,1,2
+15,Simon,Hofmann,7,1,2
+16,Laura,Berger,7,1,2
+17,Felix,Schäfer,7,1,2
+18,Emily Sophie,Hartmann,7,1,2
+19,Nico,Herrmann,7,1,2
+20,Julia,Keller,7,1,2
+21,David,Vogel,7,2,1
+22,Sarah Susi,Sommer,7,2,1
+23,Anton,Schmitz,7,2,1
+24,Anna,Wagner,7,2,1
+25,Timo,Huber,7,2,1
+26,Laura,Mayer,7,2,1
+27,Simon,Schuster,7,2,1
+28,Julia,Frank,7,2,1
+29,David,Keller,7,2,1
+30,Sarah,Fuchs,7,2,1
+31,Lukas,Braun,8,1,1
+32,Anna,Schmidt,8,1,1
+33,Tim,Richter,8,1,1
+34,Laura,Müller,8,1,1
+35,Jonas,Berger,8,1,1
+36,Lisa,Schulz,8,1,1
+37,Kevin,Meier,8,1,1
+38,Marie,Wolf,8,1,1
+39,Paul,Hofmann,8,1,1
+40,Lena,Becker,8,1,1
+41,Simon,Lehmann,8,1,2
+42,Laura,Koch,8,1,2
+43,Felix,Neureuter,8,1,2
+44,Emily,Braun,8,1,2
+45,Nico,Schäfer,8,1,2
+46,Julia,Hartmann,8,1,2
+47,David,Herrmann,8,1,2
+48,Sarah,Keller,8,1,2
+49,Lukas,Vogel,8,1,2
+50,Anna,Sommer,8,2,1
+51,Timo,Schmitz,8,2,1
+52,Laura,Wellenbeck,8,2,1
+53,Simon,Huber,8,2,1
+54,Julia,Mayer,8,2,1
+55,David,Schuster,8,2,1
+56,Sarah,Franke,8,2,1
+57,Lukas,Braun,8,2,1
+58,Anna,Richter,8,2,1
+59,Brian Timo,Müller,8,2,1
+60,Laura,Berger,8,2,1
+61,Simon Thomas,Schulz,9,1,1
+62,Julia,Meier,9,1,1
+63,David,Wolf,9,1,1
+64,Sarah,Hofmann,9,1,1
+65,Lukas,Becker,9,1,1
+66,Anna,Lehmann,9,1,1
+67,Tim,Schneider,9,1,1
+68,Laura,Schäfer,9,1,1
+69,Jonas,Hartmann,9,1,1
+70,Lisa,Herrmann,9,1,1
+71,Kevin,Keller,9,1,2
+72,Marie,Sommer,9,1,2
+73,Paul,Juergensen,9,1,2
+74,Lena,Huber,9,1,2
+75,Simon,Mayer,9,1,2
+76,Laura,Schuster,9,1,2
+77,Felix,Frank,9,1,2
+78,Emily,Braun,9,1,2
+79,Nico,Richter,9,1,2
+80,Julia,Berger,9,1,2
+81,Sergio,Schulz,9,2,1
+82,Sarah,Meier,9,2,1
+83,Lukas,Wolf,9,2,1
+84,Anna,Hofmann,9,2,1
+85,Timo,Becker,9,2,1
+86,Laura,Lehmann,9,2,1
+87,Simon,Koch,9,2,1
+88,Julia,Hartmann,9,2,1
+89,David,Herrmann,9,2,1
+90,Sarah,Keller,9,2,1
+91,Lukas,Sommer,10,1,1
+92,Anna,Schmitz,10,1,1
+93,Tim,Wagner,10,1,1
+94,Laura,Mayer,10,1,1
+95,Felix,Schuster,10,1,1
+96,Emily,Frank,10,1,1
+97,Nico,Braun,10,1,1
+98,Julia,Richter,10,1,1
+99,David,Berger,10,1,1
+100,Sarah,Schulz,10,1,1
+101,Lukas,Meier,10,1,2
+102,Anna,Wolf,10,1,2
+103,Tim,Hofmann,10,1,2
+104,Laura,Becker,10,1,2
+105,Simon Ole,Lehmann,10,1,2
+106,Maria,Koloeffel,10,1,2
+107,David Torsten,Hartmann,10,1,2
+108,Lina Sarah,Herrmann,10,1,2
+109,Lukas,Keller,10,1,2
+110,Anna,Sommer,10,1,2
+111,Timon,Schmitz,10,2,1
+112,Laura Luisa,Wagner,10,2,1
+113,Simon,Huber,10,2,1
+114,Julia,Mayer,10,2,1
+115,Tolga,Can,10,2,1
+116,Sarah,Frank,10,2,1
+117,Lukas,Braun,10,2,1
+118,Anna,Richter,10,2,1
+119,Timo,Müller,10,2,1
+120,Laura Mia,Berger,10,2,1
